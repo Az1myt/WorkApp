@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+
+<div id="content">
+    <div  id="administration-form" data-bind="visible: !isAutorization()">
+        <div class="form-group">
+            <label for="user">Пользователь</label>
+            <input id="user" class="form-control" type="text" data-bind="value: user" placeholder="Введите пользователя"/> 
+            <label data-bind="visible: showError()">Поле не должно быть пустым</label>
+        </div>
+        <input class="btn" type="button" data-bind="click: autorization" value="Авторизоваться"/>
+    </div>
+    <div data-bind="visible: isAutorization()">
+       <div class="form-group">
+           <span> Пользователь: <label  data-bind="text: user"></label> </span>
+       </div>
+        <div>
+            <div class="form-group" style="float: left; padding-right: 30px;">
+                <input class="btn" id="ShowRequestForm"  type="button" value="Подать заявку" />
+            </div>
+            <div class="form-group" data-bind="visible:isAdmin" style="float: left">
+                <input class="btn" id="ShowAllRequest" type="button" value="Все заявки" />
+            </div>
+        </div>
+        <div style="padding-bottom: 30px; "></div>
+        <div class="form-group" id="request-form">
+            <h2>Подать заявку</h2>
+            <div>
+                <label for="Description"> Название </label>
+                <input class="form-control" id="Description" type="text"  data-bind="value: description"/>
+                <label id="error-description"> Поле обязательное </label>
+            </div>
+            <div style="margin-top: 30px;">
+                <label for="Subject"> Текст Заявки </label>
+                <textarea  class="form-control" id="Subject" data-bind="value: subject"></textarea>
+                <label id="error-subject"> Поле обязательное </label>
+            </div>
+            <div style="margin-top: 30px;">
+                <input class="btn" id="SendButton" type="button" value="Отправить" />
+            </div>
+        </div>
+
+        <div id="request-list-form">
+            <div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>
+                                Пользователь
+                            </td>
+                            <td>
+                                Заявка
+                            </td>
+                            <td>
+                                Текст заявки
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: requests">
+                        <tr>
+                            <td data-bind="text: User"></td>
+                            <td data-bind="text: Description"></td>
+                            <td data-bind="text: Subject"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="success-form">
+            <div>   
+                <h2>Спасибо, ваша заявка принята.</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/scripts/MyScripts/Main.js"></script>
+
+<script>
+    $(document).ready(function () {
+        ko.applyBindings(Initialization(), document.getElementById("content"));
+    });
+</script>
+
+
